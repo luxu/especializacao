@@ -1,16 +1,18 @@
 import csv
 import random
 import os
-
+import ipdb
 
 class MegasenaClass:
-    def __init__(self):
+    def __init__(self, linha_de_comando=False):
         self.jogos = []
         self.listaDos30NumerosMaisSorteados = []
+        self.linha_de_comando = linha_de_comando
         self.carregar('megasena.csv')
 
     def carregar(self, filename):
-        os.chdir('backend')
+        if self.linha_de_comando:
+            os.chdir('backend')
         with open(filename, 'r') as _f:
             self.jogos = list(csv.reader(_f, delimiter=";"))
 
@@ -52,10 +54,10 @@ class MegasenaClass:
         quantidade_numero_jogo = 0
         data_numeros_acertados = ''
         jogo_numeros_acertados = []
+        jogo_e_data_do_acerto = []
         for jogo in self.jogos[1:]:
             for nro in volante:
-                if nro in jogo:
-                    # print(f'{nro} consta nesse jogo: {jogos}')
+                if str(nro) in jogo:
                     if nro not in numeros_acertados:
                         numeros_acertados.append(nro)
                     quantidade_numero_jogo += 1
@@ -65,20 +67,32 @@ class MegasenaClass:
             quantidade_numeros_acertados = len(numeros_acertados)
             if quantidade_numeros_acertados > 0:
                 if quantidade_numeros_acertados == 6:
-                    print(
-                        f'Do volante: {volante}{jogo} tem {quantidade_numero_jogo} números sorteados: {numeros_acertados}!')
-                    print(f'foi feita a SENA na data {data_numeros_acertados} e o jogo {jogo}')
+                    premiacao = 'SENA'
+                    item = {
+                        'premiacao': premiacao,
+                        'data': data_numeros_acertados
+                    }
+                    jogo_e_data_do_acerto.append(item)
                 elif quantidade_numeros_acertados == 5:
-                    print(f'Do volante: {volante} tem {quantidade_numero_jogo} números sorteados: {numeros_acertados}!')
-                    print(f'foi feita a QUINA na data {data_numeros_acertados} e o jogo {jogo}')
+                    premiacao = 'QUINA'
+                    item = {
+                        'premiacao': premiacao,
+                        'data': data_numeros_acertados
+                    }
+                    jogo_e_data_do_acerto.append(item)
                 elif quantidade_numeros_acertados == 4:
-                    print(f'Do volante: {volante} tem {quantidade_numero_jogo} números sorteados: {numeros_acertados}!')
-                    print(f'foi feita a QUADRA na data {data_numeros_acertados} e o jogo {jogo}')
+                    premiacao = 'QUADRA',
+                    item = {
+                        'premiacao': premiacao,
+                        'data': data_numeros_acertados
+                    }
+                    jogo_e_data_do_acerto.append(item)
             data_numeros_acertados = []
             jogo_numeros_acertados = []
             quantidade_numero_jogo = 0
             numeros_acertados = []
-        return 1, len(volante)
+        # ipdb.set_trace()
+        return jogo_e_data_do_acerto
 
     def sugerirJogo(self):
         lista = [r['nro'] for r in self.listaDos30NumerosMaisSorteados]
