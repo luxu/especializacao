@@ -103,11 +103,7 @@ class MegasenaClass:
             if numeroGerado not in listaFinal:
                 listaFinal.append(numeroGerado)
                 cont += 1
-                print(numeroGerado)
-            else:
-                print(f'Repetiu esse número..:{numeroGerado}')
-#     generate jogo com 8 numeros pegando os 30 nros mais sorteados da historia
-
+        return listaFinal
     def numerosMaisSorteados(self):
         for nro in range(1, 61):
             qtde = 0

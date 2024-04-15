@@ -1,8 +1,6 @@
 import json
 
 from flask import Flask, render_template, request, jsonify
-from flask import url_for
-# from flask_cors import CORS
 from megasena import MegasenaClass
 
 app = Flask(__name__, template_folder='../frontend/templates')
@@ -39,11 +37,21 @@ def conferir():
     }
     return jsonify(response_data), 200
 
-@app.route('/sugerir', methods=['POST'])
+@app.route('/sugerir')
 def sugerir():
-    numbers = json.loads(request.data)['numbers']
+    template_name = 'sugerir.html'
     megasena = MegasenaClass()
-    resultado = megasena.sugerirJogo()
+    resultados = megasena.getOcorrencias()[:30]
+    return render_template(template_name, resultados=resultados)
+
+@app.route('/sugerir-jogo')
+def sugerirJogo():
+    megasena = MegasenaClass()
+    # Carrego os 30 primeiros
+    megasena.numerosMaisSorteados()
+    oitoNumerosEscolhidosAleatorios = megasena.sugerirJogo()
+    resultado = megasena.conferir(oitoNumerosEscolhidosAleatorios)
+    print(resultado)
     response_data = {
         'result': resultado,
         'status': 'success'
@@ -52,4 +60,4 @@ def sugerir():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

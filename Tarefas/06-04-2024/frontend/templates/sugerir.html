@@ -6,24 +6,20 @@
 
 {% block content %}
     <div class="mt-4">
-        <h1 class="text-center">Cartela da Mega-Sena</h1>
+        <h2 class="text-center">Sugestões Aleatórios</h2>
+        <h5 class="text-center">Abaixo os 30 números mais sorteados na história da Mega Sena</h5>
 
-        <div class="numbers-grid" id="numbersGrid"></div>
+        <h3 class="mt-4 text-center">
+            {% for resultado in resultados %}
+                {{ resultado['numero'] }}
+            {% endfor %}
+        </h3>
 
-        <h3>Números Escolhidos</h3>
-
-        <div id="selectedNumbers"></div>
+        <h5 class="text-center mt-5">Destes serão escolhidos 8 números de forma aleatória</h5>
 
         <div class="d-flex flex-column mb-3">
-            <div class="p-2"></div>
-            <div class="p-2">
-                <button class="btn btn-primary" id="confirmButton" disabled>Confirmar</button>
-            </div>
+            <a class="btn btn-primary" href="http://localhost:5000/sugerir-jogo">Sortear?</a>
         </div>
     </div>
     <p id="resultados"></p>
 {% endblock content %}
-
-{% block js %}
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-{% endblock js %}
