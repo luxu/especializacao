@@ -25,6 +25,11 @@ def volante():
     template_name = 'cartela.html'
     return render_template(template_name)
 
+@app.route('/upload')
+def upload():
+    template_name = 'upload.html'
+    return render_template(template_name)
+
 
 @app.route('/conferir', methods=['POST'])
 def conferir():
@@ -46,17 +51,14 @@ def sugerir():
 
 @app.route('/sugerir-jogo')
 def sugerirJogo():
+    template_name = 'sugerir.html'
     megasena = MegasenaClass()
-    # Carrego os 30 primeiros
+    resultados = megasena.getOcorrencias()[:30]
+    # Carrega os 30 primeiros
     megasena.numerosMaisSorteados()
     oitoNumerosEscolhidosAleatorios = megasena.sugerirJogo()
-    resultado = megasena.conferir(oitoNumerosEscolhidosAleatorios)
-    print(resultado)
-    response_data = {
-        'result': resultado,
-        'status': 'success'
-    }
-    return jsonify(response_data), 200
+    resultadofinal = megasena.conferir(oitoNumerosEscolhidosAleatorios)
+    return render_template(template_name, resultadofinal=resultadofinal, resultados=resultados)
 
 
 if __name__ == '__main__':

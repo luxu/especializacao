@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <div class="jumbotron">
-        <h1>Bem vindo a Mega Sena</h1>
-        <input type="file" src="">
-        <p>Preencher um volante</p>
-        <p>Sugerir jogo</p>
-        <p>
-            <a class="btn btn-primary btn-lg" href="megasena.html" role="button">Jogue agora</a>
-        </p>
+    <div class="jumbotron text-center py-4">
+        <h1>Bem vindo aos jogos da Mega Sena</h1>
+        <img src="{{ url_for('static', filename='image/logo.png') }}" alt="">
     </div>
 {% endblock %}
