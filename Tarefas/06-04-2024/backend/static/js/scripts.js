@@ -84,8 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             let html = '<h3>Resultados dos jogos:</h3><br>';
-            for(let i = 0; i < data.result.length; i++){
-                html += `<p>${data.result[i]['data']} - ${data.result[i]['premiacao']}</p>`;
+            if (data.result.length === 0) {
+                html += '<p>Nenhum houve acertos.</p>';
+            } else {
+                for(let i = 0; i < data.result.length; i++){
+                    html += `<p>${data.result[i]['data']} - ${data.result[i]['premiacao']}</p>`;
+                }
             }
             document.getElementById('resultados').innerHTML = html;
             alert('Cartela enviada com sucesso!');

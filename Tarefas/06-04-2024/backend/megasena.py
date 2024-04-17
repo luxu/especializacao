@@ -1,7 +1,7 @@
 import csv
 import random
 import os
-import ipdb
+
 
 class MegasenaClass:
     def __init__(self, linha_de_comando=False):
@@ -20,9 +20,7 @@ class MegasenaClass:
         ocorrencias = []
         itens = []
         dicionario = {}
-        # line = '-' * 40
         for nro in range(1, 61):
-            # print(f"{line} Inicio do número..:{nro} {line}")
             for jogo in self.jogos:
                 if jogo[2] == str(nro):
                     concurso = jogo[0]
@@ -32,9 +30,6 @@ class MegasenaClass:
                         'data': data,
                     }
                     itens.append(item)
-            # for index, jogo in enumerate(itens):
-            #     print(f"Concurso..: {jogo['concurso']}({jogo['data']}) {index + 1}")
-            # print(f"{line} Fim do número..:{nro} {line}")
             dicionario['numero'] = nro
             dicionario['qtadeNro'] = len(itens)
             ocorrencias.append(dicionario)
@@ -44,12 +39,12 @@ class MegasenaClass:
         return ocorrencias
 
     def conferir(self, volante):  # sourcery skip: switch
-        # line = '-' * 40
-        if len(volante) < 6 or len(volante) > 9:
-            return 0, len(volante)
-        # jogos = ['39', '9', '11', '54', '7', '57']
-        # ['concurso', 'data', 'n1', 'n2', 'n3', 'n4', 'n5', 'n6']
-        # ['2707', '02/04/2024', '39', '9', '11', '54', '7', '57']
+        try:
+            tam = len(volante.split(','))
+        except Exception:
+            tam = len(volante)
+        if tam < 6 or tam > 9:
+            return 0, f'O volante deve conter entre 6 e 9 números esse tem...{tam}'
         numeros_acertados = []
         quantidade_numero_jogo = 0
         data_numeros_acertados = ''
@@ -91,7 +86,13 @@ class MegasenaClass:
             jogo_numeros_acertados = []
             quantidade_numero_jogo = 0
             numeros_acertados = []
-        # ipdb.set_trace()
+        if not jogo_e_data_do_acerto:
+            premiacao = 'Nenhum houve acertos!'
+            item = {
+                'premiacao': premiacao,
+                'data': ''
+            }
+            jogo_e_data_do_acerto.append(item)
         return jogo_e_data_do_acerto
 
     def sugerirJogo(self):
@@ -104,6 +105,7 @@ class MegasenaClass:
                 listaFinal.append(numeroGerado)
                 cont += 1
         return listaFinal
+
     def numerosMaisSorteados(self):
         for nro in range(1, 61):
             qtde = 0
@@ -118,8 +120,6 @@ class MegasenaClass:
                 'qtde': qtde
             }
             self.listaDos30NumerosMaisSorteados.append(item)
-            # print(f'Numero {nro} apareceu {qtde} vezes na história')
-                # break
         self.listaDos30NumerosMaisSorteados.sort(key=lambda x: x['qtde'], reverse=True)
         self.listaDos30NumerosMaisSorteados = self.listaDos30NumerosMaisSorteados[:30]
 
