@@ -1,0 +1,6 @@
+peso <- c(42, 51, 59, 64, 76)
+dia_do_nasc <- c(2, 4, 6, 8, 10)
+dados <- data.frame(dia_do_nasc, peso)
+minhas_cores <- c("blue", "pink", "yellow", "green", "red")
+barplot(dados$peso, names.arg = dados$dia_do_nasc, horiz = TRUE, col = minhas_cores, xlab = "Peso Médio", ylab = "Nascimento", main = "Peso Médio dos Pintinhos por Nascimento")
+legend("topright", legend = dados$dia_do_nasc, fill = minhas_cores, title = "Nascimento")
