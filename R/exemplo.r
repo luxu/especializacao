@@ -1,7 +1,7 @@
 install.packages("TeachingSampling")
 library(TeachingSampling)
 
-dados <- read.csv("amostra.csv", header = T, sep = ";")
+dados <- read.csv("R/amostra.csv", header = T, sep = ";")
 set.seed(50) #Definição da semente a ser utilizada
 amostra <- dados[runif(10, 1, nrow(dados)),] #Definição da amostra
 amostra

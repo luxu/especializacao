@@ -1,0 +1,21 @@
+﻿Paciente;Situacao;Idade;Peso;Altura;IMC;Classificacao
+1;Deambulando;77;50.58;1.69;17.7;Magreza
+2;Acamado;72;52.87;1.62;24.5;Eutrofia
+3;Acamado;69;46.73;1.62;17.8;Magreza
+4;Deambulando;69;80.8;1.65;29.7;Excesso de peso
+5;Deambulando;79;49.9;1.5;22.17;Eutrofia
+6;Deambulando;66;79.3;1.74;26.25;Eutrofia
+7;Deambulando;78;58.8;1.59;23.33;Eutrofia
+8;Deambulando;71;77;1.62;29.38;Excesso de peso
+9;Deambulando;70;97.7;1.73;32.67;Excesso de peso
+10;Deambulando;62;85.2;1.61;32.89;Excesso de peso
+11;Acamado;73; 65.36 ;1.54;27.57;Excesso de peso
+12;Acamado;61; 82.8 ;1.66;30.1;Excesso de peso
+13;Acamado;64;60.75;1.45;28.92;Excesso de peso
+14;Deambulando;63;80.3;1.64;29.96;Excesso de peso
+15;Deambulando;76;73.4;1.64;27.38;Eutrofia
+16;Deambulando;70;64.8;1.64;24.17;Eutrofia
+17;Deambulando;71;46.8;1.47;21.66;Magreza
+18;Deambulando;60;58.7;1.64;21.9;Magreza
+19;Deambulando;79;103.1;1.69;36.17;Excesso de peso
+20;Deambulando;65;89.7;1.63;33.84;Excesso de peso

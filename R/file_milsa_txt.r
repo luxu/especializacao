@@ -1,4 +1,4 @@
-# install.packages('dplyr')
+install.packages('dplyr')
 library(dplyr)
 dados <- read.table("Milsa.txt", header = T)
 dados$instr <- factor(dados$instr, label=c("1º Grau", "2º Grau", "Superior"), lev = 1:3, ord=T)
