@@ -41,52 +41,53 @@ INSERT INTO bi_dclientes (
 VALUES (default, %s, %s, %s, %s, %s, %s)
 '''
 
-def createTableBI(connPar):   
-  try:
-    cur = connPar.cursor()
-    cur.execute(create_table_query)
-    connPar.commit()
-    cur.close()
-    
-    return 1
-  except Exception as e:
-    print(f"[loadCliente.py|createTableBI] Ocorreu um erro: {e}")
-    return None
 
-def insertTableBI(connPar, dfPar): 
-  try:
-    cur = connPar.cursor()  
-    iii = 0
-    for _, row in dfPar.iterrows():
-      # Necessário para inserir somente IDs que  ainda não estão no banco de dados.      
-      cur.execute("SELECT dcliente_sk FROM bi_dclientes where codigo_cliente = %s", (row['codigo_cliente'],))
-      existing_id = cur.fetchone()    
-      if existing_id == None:        
-        cur.execute(insert_query, (
-            row['codigo_cliente'],
-            row['nome_cliente'],
-            row['endereco'],
-            row['cidade'],
-            row['cep'],
-            row['uf']                    
-      ))
-  except Exception as e:
-        print(f"[loadCliente.py|insertTableBI] Ocorreu um erro: {e}")
+def createTableBI(connPar):
+    try:
+        cur = connPar.cursor()
+        cur.execute(create_table_query)
+        connPar.commit()
+        cur.close()
+        return 1
+    except Exception as e:
+        print(f"[loadCliente.py|createTableBI] Ocorreu um erro: {e}")
         return None
 
-  connPar.commit()  
-  return 1
 
-def executeLoad(dfPar):  
-  try:
-    print(f"Etapa: Carregando Clientes para o banco de dados")
-    # Conecta com o Postgres
-    conn = psycopg2.connect(**db_params)    
-    createTableBI(conn)
-    insertTableBI(conn, dfPar)
+def insertTableBI(connPar, dfPar):
+    try:
+        cur = connPar.cursor()
+        iii = 0
+        for _, row in dfPar.iterrows():
+            # Necessário para inserir somente IDs que  ainda não estão no banco de dados.
+            cur.execute("SELECT dcliente_sk FROM bi_dclientes where codigo_cliente = %s", (row['codigo_cliente'],))
+            existing_id = cur.fetchone()
+            if existing_id == None:
+                cur.execute(insert_query, (
+                    row['codigo_cliente'],
+                    row['nome_cliente'],
+                    row['endereco'],
+                    row['cidade'],
+                    row['cep'],
+                    row['uf']
+                ))
+    except Exception as e:
+        print(f"[loadCliente.py|insertTableBI] Ocorreu um erro: {e}")
+        return None
+    connPar.commit()
+    return 1
 
-    conn.close()
-    return dfPar
-  except Exception as e:
+
+def executeLoad(dfPar):
+    try:
+        print(f"Etapa: Carregando Clientes para o banco de dados")
+        # Conecta com o Postgres
+        conn = psycopg2.connect(**db_params)
+        createTableBI(conn)
+        insertTableBI(conn, dfPar)
+
+        conn.close()
+        return dfPar
+    except Exception as e:
         print(f"[loadCliente.py|executeTransform] Ocorreu um erro: {e}")
         return None

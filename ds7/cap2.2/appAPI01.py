@@ -14,6 +14,7 @@ if response.status_code == 200:
     data = response.json()
 else:
     print(f"Falha em buscar a API. Código do status: {response.status_code}")
+    data = []
 
 ## Transform
 # Criando um dataframe com os dados da API
@@ -25,5 +26,5 @@ print(f"Valor do dataframe")
 print(df)
 
 ## Load
-#df.to_csv(arquivoCSV, index=False)
-#print(f"Dados salvos com sucesso no arquivo {arquivoCSV}")
+df.to_csv(arquivoCSV, index=False)
+print(f"Dados salvos com sucesso no arquivo {arquivoCSV}")

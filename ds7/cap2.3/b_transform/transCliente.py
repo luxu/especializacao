@@ -2,15 +2,14 @@
 
 import pandas as pd
 
+
 def executeTransform(dfPar):
+    try:
+        # Colocar aqui as tranformações dos clientes
 
-  try:
-    # Colocar aqui as tranformações dos clientes
+        print(f"Etapa: Transformando Clientes")
 
-    print(f"Etapa: Transformando Clientes")
-    
-
-    return dfPar
-  except Exception as e:
+        return dfPar
+    except Exception as e:
         print(f"[transCliente.py|executeTransform] Ocorreu um erro: {e}")
         return None
